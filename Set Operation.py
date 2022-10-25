@@ -1,80 +1,108 @@
-cricket=[]
-badminton=[]
-football=[]
+def accept_set(A,Str): 
+   n = int(input("Enter the total no. of student who play %s : "%Str))
+   for i in range(n) :
+      x = input("Enter the name of student %d who play %s : "%((i+1),Str))
+      A.append(x)
+   print("Set accepted successfully")
 
-total_cricket = int(input("Enter the number of students who play cricket-\n"))
-for i in range(total_cricket):
-    roll_number_cricket = int(input("Enter the roll number of the student-\n"))
-    if roll_number_cricket not in cricket:
-        cricket.append(roll_number_cricket)
-    else:
-        pass
-total_badminton = int(input("Enter the number of students who play badminton-\n"))
-for i in range(total_badminton):
-    roll_number_badminton = int(input("Enter the roll number of the student-\n"))
-    if roll_number_badminton not in badminton:
-        badminton.append(roll_number_badminton)
-    else:
-        pass
-total_football = int(input("Enter the number of students who play football-\n"))
-for i in range(total_football):
-    roll_number_football = int(input("Enter the roll number of the student-\n"))
-    if roll_number_football not in football:
-        football.append(roll_number_football)
-    else:
-        pass
+def display_set(A,Str): 
+   n = len(A)
+   if(n == 0) :
+      print("\n Group of Students who play %s =  { }"%Str)
+   else :
+      print("\n Group of Students who play %s =  {"%Str,end=' ')
+      for i in range(n-1) :
+         print("%s,"%A[i],end=' ')
+      print("%s }"%A[n-1]);
+   
+def search_set(A,X) :
+    n = len(A)
+    for i in range(n):
+       if(A[i] == X) :
+          return (1)
+    return (0)
 
-def both_cricket_and_badminton(cricket,badminton):
-    cricket_and_badminton = []
-    for i in cricket:
-        if i in badminton:
-            cricket_and_badminton.append(i)
-    for j in badminton:
-        if j in cricket and j not in cricket_and_badminton:
-            cricket_and_badminton.append(j)
-    return cricket_and_badminton
 
-def cricket_or_badminton_but_not_both(cricket,badminton):
-    cricket_or_badminton_not_both = []
-    for i in cricket:
-        if i not in badminton:
-            cricket_or_badminton_not_both.append(i)
-        else:
-            pass
-    for j in badminton:
-        if j not in cricket and j not in cricket_or_badminton_not_both:
-            cricket_or_badminton_not_both.append(j)
-        else:
-            pass
-    return cricket_or_badminton_not_both
+def find_intersection_set(A,B,C):
+   for i in range(len(A)): 
+      flag = search_set(B,A[i]);
+      if(flag == 1) :
+          C.append(A[i])
 
-def neither_cricket_nor_badminton(cricket,badminton,football):
-    neither_cricket_nor_badminton_count = 0
-    for i in football:
-        if i not in cricket and i not in badminton:
-            neither_cricket_nor_badminton_count += 1
-        else:
-            pass
-    return neither_cricket_nor_badminton_count
+def find_difference_set(A,B,C):
+    for i in range(len(A)): 
+      flag = search_set(B,A[i]);
+      if(flag == 0) :
+          C.append(A[i])    
 
-def cricket_and_football_not_badminton(cricket,badminton,football):
-    cricket_and_football_not_badminton = []
-    for i in cricket:
-        if i in football and i not in badminton and i not in cricket_and_football_not_badminton:
-            cricket_and_football_not_badminton.append(i)
-        else:
-            pass
-    for j in football:
-        if j in cricket and j not in badminton and j not in cricket_and_football_not_badminton:
-            cricket_and_football_not_badminton.append(j)
 
-    cricket_and_football_not_badminton_count = 0
-    for k in cricket_and_football_not_badminton:
-        cricket_and_football_not_badminton_count += 1
+def find_union_set(A,B,C):
+   for i in range(len(A)):
+      C.append(A[i])
+   for i in range(len(B)): 
+      flag = search_set(A,B[i]);
+      if(flag == 0) :
+          C.append(B[i])    
+       
+def Main() :
+   Group_A = []
+   Group_B = []
+   Group_C = []
+   
+   while True :
+       print ("\t1 : Accept the Information")
+       print ("\t2 : List of students who play both cricket and badminton")
+       print ("\t3 : List of students who play either cricket or badminton but not both")
+       print ("\t4 : Number of students who play neither cricket nor badminton")
+       print ("\t5 : Number of students who play cricket and football but not badminton")
+       print ("\t6 : Exit")
+       ch = int(input("Enter your choice : "))
+       Group_R = []       
+       if (ch == 6):
+           print ("End of Program")
+           break
+       elif (ch==1):
+           accept_set(Group_A,"Cricket")
+           accept_set(Group_B,"Badminton")
+           accept_set(Group_C,"Football")
+           display_set(Group_A,"Cricket")
+           display_set(Group_B,"Badminton")
+           display_set(Group_C,"Football")           
+       elif (ch==2):
+           display_set(Group_A,"Cricket")
+           display_set(Group_B,"Badminton")
+           find_intersection_set(Group_A,Group_B,Group_R)
+           display_set(Group_R," both Cricket and Badminton")
+       elif (ch==3):
+           display_set(Group_A,"Cricket")
+           display_set(Group_B,"Badminton")
+           R1 = []
+           find_union_set(Group_A,Group_B,R1)
+           R2 = []
+           find_intersection_set(Group_A,Group_B,R2)
+           find_difference_set(R1,R2,Group_R)
+           display_set(Group_R," either cricket or badminton but not both")
+       elif (ch==4):
+           display_set(Group_A,"Cricket")
+           display_set(Group_B,"Badminton")
+           display_set(Group_C,"Football")
+           R1 = []
+           find_union_set(Group_A,Group_B,R1)
+           find_difference_set(Group_C,R1,Group_R)
+           display_set(Group_R," neither cricket nor badminton")
+           print("Number of students who play neither cricket nor badminton = %s"%len(Group_R))
+       elif (ch==5):
+           display_set(Group_A,"Cricket")
+           display_set(Group_C,"Football")
+           display_set(Group_B,"Badminton")
+           R1 = []
+           find_intersection_set(Group_A,Group_C,R1)           
+           find_difference_set(R1,Group_B,Group_R)           
+           display_set(Group_R,"cricket and football but not badminton")
+           print("Number of students who play cricket and football but not badminton = %s"%len(Group_R))                 
+       else :
+           print ("Wrong choice entered !! Try again")
 
-    return cricket_and_football_not_badminton_count
 
-print("Students who play both cricket and badminton- ",both_cricket_and_badminton(cricket,badminton))
-print("Students who play cricket or badminton but not both- ",cricket_or_badminton_but_not_both(cricket,badminton))
-print("Number of students who play neither cricket nor badminton- ",neither_cricket_nor_badminton(cricket,badminton,football))
-print("Number of students who play cricket and football but not badmininton- ",cricket_and_football_not_badminton(cricket,badminton,football))
+Main()
+quit()
