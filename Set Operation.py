@@ -1,6 +1,6 @@
-cricket = []
-badminton = []
-football = []
+cricket=[]
+badminton=[]
+football=[]
 
 total_cricket = int(input("Enter the number of students who play cricket-\n"))
 for i in range(total_cricket):
