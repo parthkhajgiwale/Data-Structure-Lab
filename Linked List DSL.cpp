@@ -3,13 +3,13 @@
 using namespace std;
  struct node
 {    int prn,rollno;
-      char name[50];
+      string name;
       struct node *next;
 };
 class info
 {        node *s=NULL,*head1=NULL,*temp1=NULL,*head2=NULL,*temp2=NULL,*head=NULL,*temp=NULL;
         int b,c,i,j,ct;
-        char a[20];
+        string a;
         public:
     
             node *create();
@@ -27,13 +27,13 @@ class info
 }  ;        
 node *info::create()
 {   node *p=new(struct node);
-     cout<<"enter name of student ";
+     cout<<"\n  Enter Name of Student: ";
      cin>>a;
-     strcpy(p->name,a);
-       cout<<"\n  enter prn no. of student \n";
+     p->name=a;
+       cout<<"\n  Enter PRN of Student: ";
      cin>>b;
      p->prn=b;
-     cout<<"enter student rollno";
+     cout<<"\n  Enter Roll No. of Student: ";
      cin>>c;
      p->rollno=c;
      p->next=NULL;
@@ -77,17 +77,17 @@ node *info::create()
               else
               {   
                 temp=head;
-                          cout<<"     prn     rolln0    NAME   \n";
+                          cout<<"\t \t \t \tPRN     ROLLNO    NAME   \n";
                           while(temp->next!=NULL)
-                          {     cout<<"    \n"<<temp->prn<<"    "<<temp->rollno<<"    "<<temp->name;
+                          {     cout<<"  --> "<<temp->prn<<"   "<<temp->rollno<<"  "<<temp->name;
                                 temp=temp->next;
                           }
-                         cout<<"    "<<temp->prn<<"    "<<temp->rollno<<"    "<<temp->name;
+                         cout<<"  -->  "<<temp->prn<<"  -->  "<<temp->rollno<<" -->   "<<temp->name;
                }     
   }
   void info::delm()
   {  int m,f=0; 
-     cout<<"\n enter the prn no. of student whose data you want to delete";
+     cout<<"\n Enter the PRN of student whose data you want to delete";
       cin>>m;
       temp=head;
       while(temp->next!=NULL)
@@ -99,11 +99,11 @@ node *info::create()
             s=temp;
             temp=temp->next;
        }      if(f==0)
-             {   cout<<"\n sorry memeber not deleted ";   }
+             {   cout<<"\n Member Successfully deleted ";   }
    }
    void info::delp()
-  {     temp=head;
-      head=head->next;
+  {     node *temp=s;
+      s=s->next;
          delete(temp);
       }
       void info::dels()
@@ -136,7 +136,7 @@ node *info::create()
         
      void info::concat()
     {  int k,j;
-       cout<<"enter no. of members in list1";
+       cout<<"Enter No. of Members in list1";
        cin>>k;
         head=NULL;
        for(i=0;i<k;i++)
@@ -144,7 +144,7 @@ node *info::create()
          head1=head;
           
        } head=NULL;
-      cout<<"enter no. of members in list2";
+      cout<<"Enter No. of Members in list2";
        cin>>j;
        for(i=0;i<j;i++)
        { insertm();
@@ -159,7 +159,7 @@ node *info::create()
                        
 
                               temp2=head1;                
-                             cout<<"     prn     rolln0    NAME   \n";
+                             cout<<"     PRN     ROLLNO    NAME   \n";
                           while(temp2->next!=NULL)
                           { 
                              cout<<"\n    "<<temp2->prn<<"    "<<temp2->rollno<<"      "<<temp2->name<<"\n";;
@@ -173,17 +173,18 @@ node *info::create()
    
           char ch;
        do{
-          cout<<"\n choice the options";
-          cout<<"\n  1. To insert president   ";
-          cout<<"\n  2. To insert member   ";
-          cout<<"\n  3. To insert secretary ";
-          cout<<"\n  4. To delete president   ";
-          cout<<"\n  5. To delete member  ";
-          cout<<"\n  6. To delete secretary ";
-          cout<<"\n  7. To display data   ";
+          cout<<"\n <-----Welcome to Pinaccle Club----->";
+          cout<<"\n  1. To insert President   ";
+          cout<<"\n  2. To insert Member   ";
+          cout<<"\n  3. To insert Secretary ";
+          cout<<"\n  4. To delete President   ";
+          cout<<"\n  5. To delete Member  ";
+          cout<<"\n  6. To delete Secretary ";
+          cout<<"\n  7. To display Data   ";
           cout<<"\n  8. Count of members";
-          cout<<"\n  9. To display reverse of string ";
-          cout<<"\n  10.To concatenate two strings ";
+          cout<<"\n  9. To display reverse of list ";
+          cout<<"\n  10.To concatenate two list ";
+          cout<<"\n  Enter Your Choice: ";
           cin>>i;
          switch(i)
          {        case 1:   s.insertp();
@@ -207,12 +208,12 @@ node *info::create()
                   case 10:  s.concat();
                                                       
                                   break;                                  
-                  default:  cout<<"\n unknown choice";
+                  default:  cout<<"\n Invalid choice";
           }
-            cout<<"\n do you want to continue enter y/Y \n";
+            cout<<"\n do you want to continue enter Y/N \n";
             cin>>ch;
        
-       }while(ch=='y'||ch=='Y');                                                                                                   
+       }while(ch=='Y' || ch=='y');                                                                                                   
                      
    return 0;
  } 
